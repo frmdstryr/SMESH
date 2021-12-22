@@ -5,7 +5,7 @@ diff -ru a/src/Controls/SMESH_Controls.cxx b/src/Controls/SMESH_Controls.cxx
    void SetFlag  ( int flag ) { myFlags |= flag; }
    void UnsetFlag( int flag ) { myFlags &= ~flag; }
 
-+  Classifier(Classifier&&) noexcept(false) = default;
++  Classifier(Classifier&& other) noexcept {mySolidClfr = 0; myFlags = 0;}
 +
  private:
    bool isOutOfSolid (const gp_Pnt& p);
