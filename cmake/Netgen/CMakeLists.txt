@@ -264,6 +264,7 @@ target_include_directories(nglib4smesh PUBLIC
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/include>
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/nglib>
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc>
+  $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/core>
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/general>
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/meshing>
   $<INSTALL_INTERFACE:include/smesh/Netgen>
