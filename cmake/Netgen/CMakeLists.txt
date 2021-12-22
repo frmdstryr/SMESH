@@ -205,19 +205,19 @@ SET(MESHING_SOURCES
 FILE(GLOB MESHING_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/meshing/*.hpp")
 
 # generate .cpp files containing the string of the .rls meshing rule files
-#add_executable(makerls ${NETGEN_ROOT_DIR}/rules/makerlsfile.cpp)
+add_executable(makerls ${NETGEN_ROOT_DIR}/rules/makerlsfile.cpp)
 
-#set(rules hexrules prismrules2 pyramidrules pyramidrules2 quadrules tetrules triarules)
+set(rules hexrules prismrules2 pyramidrules pyramidrules2 quadrules tetrules triarules)
 
-#foreach(rule ${rules})
-    #list(APPEND MESHING_SOURCES rule_${rule}.cpp)
-    #set(rule_file ${NETGEN_ROOT_DIR}/rules/${rule}.rls)
+foreach(rule ${rules})
+    list(APPEND MESHING_SOURCES rule_${rule}.cpp)
+    set(rule_file ${NETGEN_ROOT_DIR}/rules/${rule}.rls)
 
-    #add_custom_command(OUTPUT rule_${rule}.cpp
-      #COMMAND makerls ${rule_file} rule_${rule}.cpp ${rule}
-      #DEPENDS makerls ${rule_file}
-    #)
-#endforeach()
+    add_custom_command(OUTPUT rule_${rule}.cpp
+      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/makerls ${rule_file} rule_${rule}.cpp ${rule}
+      DEPENDS makerls ${rule_file}
+    )
+endforeach()
 
 # OCC
 SET(OCC_SOURCES
