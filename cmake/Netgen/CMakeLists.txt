@@ -270,7 +270,7 @@ add_custom_target(ng_generate_version_file
     -DBDIR=${NETGEN_ROOT_DIR}/libsrc
     -DEXTDIR=${NETGEN_ROOT_DIR}/../../external/Netgen/
     -P ${CMAKE_CURRENT_LIST_DIR}/generate_version_file.cmake
-    )
+)
 
 add_dependencies(nglib4smesh ng_generate_version_file)
 

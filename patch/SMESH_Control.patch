@@ -1,11 +1,10 @@
 diff -ru a/src/Controls/SMESH_Controls.cxx b/src/Controls/SMESH_Controls.cxx
 --- a/src/Controls/SMESH_Controls.cxx
 +++ b/src/Controls/SMESH_Controls.cxx
-@@ -4361,6 +4361,9 @@
+@@ -4361,6 +4361,8 @@
    void SetFlag  ( int flag ) { myFlags |= flag; }
    void UnsetFlag( int flag ) { myFlags &= ~flag; }
 
-+  Classifier(const Classifier&) = delete;
 +  Classifier(Classifier&&) = default;
 +
  private:
