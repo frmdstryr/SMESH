@@ -214,7 +214,7 @@ foreach(rule ${rules})
     set(rule_file ${NETGEN_ROOT_DIR}/rules/${rule}.rls)
 
     add_custom_command(OUTPUT rule_${rule}.cpp
-      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/makerls ${rule_file} rule_${rule}.cpp ${rule}
+      COMMAND ${CMAKE_CURRENT_BINARY_DIR}/makerls ${rule_file} rule_${rule}.cpp ${rule}
       DEPENDS makerls ${rule_file}
     )
 endforeach()
