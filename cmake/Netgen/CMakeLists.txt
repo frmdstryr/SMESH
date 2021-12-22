@@ -70,7 +70,7 @@ SET(CGS_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/csg/splinesurface.cpp
     ${NETGEN_ROOT_DIR}/libsrc/csg/surface.cpp
     ${NETGEN_ROOT_DIR}/libsrc/csg/triapprox.cpp
-    #${NETGEN_ROOT_DIR}/libsrc/csg/vscsg.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/csg/vscsg.cpp
     ${NETGEN_ROOT_DIR}/libsrc/csg/zrefine.cpp)
 
 
@@ -100,7 +100,7 @@ SET (GEOM2D_SOURCES
     #${NETGEN_ROOT_DIR}/libsrc/geom2d/geom2dpkg.cpp
     ${NETGEN_ROOT_DIR}/libsrc/geom2d/geometry2d.cpp
     #${NETGEN_ROOT_DIR}/libsrc/geom2d/python_geom2d.cpp
-    #${NETGEN_ROOT_DIR}/libsrc/geom2d/vsgeom2d.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/geom2d/vsgeom2d.cpp
     )
 
 # GPRIM
