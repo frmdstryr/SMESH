@@ -22,7 +22,6 @@ if(WIN32)
   set(PLATFORM_LIBADD ${PLATFORM_LIBADD} Userenv.lib)
 else()
   set(PLATFORM_LIBADD ${PLATFORM_LIBADD} -ldl)
-  add_definitions(-DPACKAGE_VERSION="5.3")
 endif()
 
 # Core
