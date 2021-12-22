@@ -204,6 +204,21 @@ SET(MESHING_SOURCES
 
 FILE(GLOB MESHING_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/meshing/*.hpp")
 
+# generate .cpp files containing the string of the .rls meshing rule files
+add_executable(makerls ${NETGEN_ROOT_DIR}/rules/makerlsfile.cpp)
+
+set(rules hexrules prismrules2 pyramidrules pyramidrules2 quadrules tetrules triarules)
+
+foreach(rule ${rules})
+    list(APPEND MESHING_SOURCES rule_${rule}.cpp)
+    set(rule_file ${NETGEN_ROOT_DIR}/rules/${rule}.rls)
+
+    add_custom_command(OUTPUT rule_${rule}.cpp
+      COMMAND ${NETGEN_ROOT_DIR}/makerls ${rule_file} rule_${rule}.cpp ${rule}
+      DEPENDS makerls ${rule_file}
+    )
+endforeach()
+
 # OCC
 SET(OCC_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Inter2d.cxx
@@ -249,7 +264,7 @@ SET(OCCLIBS TKernel TKGeomBase TKMath TKG2d TKG3d TKXSBase TKOffset TKFillet TKS
 SET(OCCLIBS ${OCCLIBS} TKMesh TKMeshVS TKTopAlgo TKGeomAlgo TKBool TKPrim TKBO TKIGES TKBRep)
 SET(OCCLIBS ${OCCLIBS} TKSTEPBase TKSTEP TKSTL TKSTEPAttr TKSTEP209 TKXDESTEP TKXDEIGES TKXCAF TKLCAF)
 
-
+# Create netgen_version.h
 add_custom_target(ng_generate_version_file
   ${CMAKE_COMMAND}
     -DBDIR=${NETGEN_ROOT_DIR}/libsrc

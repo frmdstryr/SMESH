@@ -16,6 +16,7 @@ def prepare_netgen():
     # Copy sources
     shutil.copytree('external/Netgen/libsrc', 'src/Netgen/libsrc')
     shutil.copytree('external/Netgen/nglib', 'src/Netgen/nglib')
+    shutil.copytree('external/Netgen/rules', 'src/Netgen/rules')
 
     # Patch Netgen sources for SALOME
     pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForSalome.patch')
@@ -112,6 +113,11 @@ def prepare_smesh():
     success = pset.apply(strip=0, root='src/SMESH')
     if not success:
         raise RuntimeError('Failed to apply SMESH_SMDS patch.')
+
+    pset = patch.fromfile('patch/SMESH_Control.patch')
+    success = pset.apply(strip=0, root='src/SMESH')
+    if not success:
+        raise RuntimeError('Failed to apply SMESH_Control patch.')
 
     # Copy MeshVSLink sources
     shutil.copytree('extra/MeshVSLink',
