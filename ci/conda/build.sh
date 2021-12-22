@@ -1,3 +1,5 @@
+set -e
+rm -Rf build
 mkdir build
 cd build
 
