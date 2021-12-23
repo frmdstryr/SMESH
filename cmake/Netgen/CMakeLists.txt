@@ -129,6 +129,7 @@ SET(INTERFACE_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/interface/read_fnf_mesh.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/readtetmesh.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/readuser.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/interface/rw_cgns.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writeabaqus.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writediffpack.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writedolfin.cpp
@@ -136,6 +137,7 @@ SET(INTERFACE_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/interface/writefeap.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writefluent.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writegmsh.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/interface/writegmsh2.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writejcm.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writepermas.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writetecplot.cpp
@@ -143,7 +145,6 @@ SET(INTERFACE_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/interface/writetochnog.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writeuser.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/wuchemnitz.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/interface/writegmsh2.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writeOpenFOAM15x.cpp)
 
 # LINALG
