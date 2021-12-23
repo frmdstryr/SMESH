@@ -99,3 +99,14 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
    }
 +  */
  }
+--- a/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx	2021-10-19 16:56:46.435802635 -0400
++++ b/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx	2021-12-23 15:50:52.845617816 -0500
+@@ -288,7 +288,7 @@
+     //netgen::occparam.resthcloseedgefac = 1.0 + netgen::mparam.grading;
+ #endif
+     occgeoComm.face_maxh = netgen::mparam.maxh;
+-    netgen::OCCSetLocalMeshSize( occgeoComm, *ngMeshes[0] );
++    netgen::OCCSetLocalMeshSize( occgeoComm, *ngMeshes[0], netgen::mparam, netgen::occparam );
+     occgeoComm.emap.Clear();
+     occgeoComm.vmap.Clear();
+
