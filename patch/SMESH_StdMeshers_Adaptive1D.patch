@@ -1,0 +1,36 @@
+diff -ru a/src/StdMeshers/StdMeshers_Adaptive1D.cxx b/src/StdMeshers/StdMeshers_Adaptive1D.cxx
+--- a/src/StdMeshers/StdMeshers_Adaptive1D.cxx
++++ b/src/StdMeshers/StdMeshers_Adaptive1D.cxx
+@@ -242,7 +242,7 @@
+     BRepAdaptor_Surface          mySurface;
+     ElementBndBoxTree*           myTree;
+     const Poly_Array1OfTriangle* myPolyTrias;
+-    const TColgp_Array1OfPnt*    myNodes;
++    const Poly_ArrayOfNodes*     myNodes;
+     bool                         myOwnNodes;
+
+     typedef vector<int> IntVec;
+@@ -319,18 +319,17 @@
+     {
+       myFaceTol         = SMESH_MesherHelper::MaxTolerance( face );
+       myTree            = triaTree;
+-      myNodes           = & tr->Nodes();
+-      myPolyTrias       = & tr->Triangles();
++      myNodes           = & tr->InternalNodes();
++      myPolyTrias       = & tr->InternalTriangles();
+       myTriasDeflection = tr->Deflection();
+       if ( !loc.IsIdentity() ) // transform nodes if necessary
+       {
+-        TColgp_Array1OfPnt* trsfNodes = new TColgp_Array1OfPnt( myNodes->Lower(), myNodes->Upper() );
+-        trsfNodes->Assign( *myNodes );
++        Poly_ArrayOfNodes* trsfNodes = new Poly_ArrayOfNodes( *myNodes );
+         myNodes    = trsfNodes;
+         myOwnNodes = true;
+         const gp_Trsf& trsf = loc;
+         for ( int i = trsfNodes->Lower(); i <= trsfNodes->Upper(); ++i )
+-          trsfNodes->ChangeValue(i).Transform( trsf );
++          trsfNodes->ChangeValue<gp_Pnt>(i).Transform( trsf );
+       }
+       for ( int i = myNodes->Lower(); i <= myNodes->Upper(); ++i )
+         myBBox.Add( myNodes->Value(i).XYZ() );
+
