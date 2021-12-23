@@ -101,6 +101,14 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
  }
 --- a/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx	2021-10-19 16:56:46.435802635 -0400
 +++ b/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx	2021-12-23 15:50:52.845617816 -0500
+@@ -64,6 +64,7 @@
+ //#include <meshtype.hpp>
+ namespace netgen {
+   NETGENPLUGIN_DLL_HEADER
++  extern OCCParameters occparam;
+   extern MeshingParameters mparam;
+   extern void OCCSetLocalMeshSize(OCCGeometry & geom, Mesh & mesh);
+ }
 @@ -288,7 +288,7 @@
      //netgen::occparam.resthcloseedgefac = 1.0 + netgen::mparam.grading;
  #endif
