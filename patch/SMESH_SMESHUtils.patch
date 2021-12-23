@@ -1,0 +1,28 @@
+diff -ru a/src/SMESHUtils/SMESH_MeshAlgos.cxx b/src/SMESHUtils/SMESH_MeshAlgos.cxx
+--- a/src/SMESHUtils/SMESH_MeshAlgos.cxx	2021-12-23 11:07:47.008586253 -0500
++++ b/src/SMESHUtils/SMESH_MeshAlgos.cxx	2021-12-23 11:08:00.848805152 -0500
+@@ -41,6 +41,10 @@
+ #include <GC_MakeSegment.hxx>
+ #include <GeomAPI_ExtremaCurveCurve.hxx>
+ #include <Geom_Line.hxx>
++#include <gp_Sphere.hxx>
++#include <gp_Cylinder.hxx>
++#include <gp_Cone.hxx>
++#include <gp_Sphere.hxx>
+ #include <IntAna_IntConicQuad.hxx>
+ #include <IntAna_Quadric.hxx>
+ #include <gp_Lin.hxx>
+diff -ru a/src/SMESHUtils/SMESH_Slot.cxx b/src/SMESHUtils/SMESH_Slot.cxx
+--- a/src/SMESHUtils/SMESH_Slot.cxx	2021-10-19 16:58:36.674164477 -0400
++++ b/src/SMESHUtils/SMESH_Slot.cxx	2021-12-23 11:09:43.754416059 -0500
+@@ -27,6 +27,10 @@
+ #include "SMDS_Mesh.hxx"
+ #include "SMDS_MeshGroup.hxx"
+
++#include <gp_Sphere.hxx>
++#include <gp_Cylinder.hxx>
++#include <gp_Cone.hxx>
++#include <gp_Sphere.hxx>
+ #include <IntAna_IntConicQuad.hxx>
+ #include <IntAna_Quadric.hxx>
+ #include <NCollection_DataMap.hxx>
