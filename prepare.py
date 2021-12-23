@@ -19,12 +19,12 @@ def prepare_netgen():
     shutil.copytree('external/Netgen/rules', 'src/Netgen/rules')
 
     # Patch Netgen sources for SALOME
-    pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForSalome.patch')
-    pset.apply(strip=1, root='src/Netgen')
+    #pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForSalome.patch')
+    #pset.apply(strip=1, root='src/Netgen')
 
-    if sys.platform == 'win32':
-        pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForWindows.patch')
-        pset.apply(strip=1, root='src/Netgen')
+    #if sys.platform == 'win32':
+    #    pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForWindows.patch')
+    #    pset.apply(strip=1, root='src/Netgen')
 
     # Copy Netgen cmake files into source directory
     shutil.copytree('cmake/Netgen', 'src/Netgen', dirs_exist_ok=True)
@@ -109,15 +109,11 @@ def prepare_smesh():
         raise RuntimeError('Failed to apply mefisto patch.')
 
     # Patch sources
-    pset = patch.fromfile('patch/SMESH_SMDS.patch')
-    success = pset.apply(strip=0, root='src/SMESH')
-    if not success:
-        raise RuntimeError('Failed to apply SMESH_SMDS patch.')
-
-    pset = patch.fromfile('patch/SMESH_Control.patch')
-    success = pset.apply(strip=0, root='src/SMESH')
-    if not success:
-        raise RuntimeError('Failed to apply SMESH_Control patch.')
+    for patch_name in ("SMESH_SMDS", "SMESH_Control", "SMESH_Mesh"):
+        pset = patch.fromfile(f'patch/{patch_name}.patch')
+        success = pset.apply(strip=0, root='src/SMESH')
+        if not success:
+            raise RuntimeError(f'Failed to apply {patch_name} patch.')
 
     # Copy MeshVSLink sources
     shutil.copytree('extra/MeshVSLink',

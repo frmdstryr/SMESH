@@ -1,0 +1,12 @@
+diff --git a/src/SMESH/SMESH_Mesh.cxx b/src/SMESH/SMESH_Mesh.cxx
+--- a/src/SMESH/SMESH_Mesh.cxx
++++ b/src/SMESH/SMESH_Mesh.cxx
+@@ -59,7 +61,7 @@
+
+ #include <GEOMUtils.hxx>
+
+-#undef _Precision_HeaderFile
++// #undef _Precision_HeaderFile
+ #include <BRepBndLib.hxx>
+ #include <BRepPrimAPI_MakeBox.hxx>
+ #include <Bnd_Box.hxx>
