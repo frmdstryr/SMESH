@@ -244,6 +244,9 @@ SET(STLGEOM_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/stlgeom/stltool.cpp
     ${NETGEN_ROOT_DIR}/libsrc/stlgeom/stltopology.cpp)
 
+SET(VISUAL_SOURCES
+    ${NETGEN_ROOT_DIR}/libsrc/visualization/visual_dummy.cpp)
+
 # NGLIB
 SET(NGLIB_SOURCES ${NETGEN_ROOT_DIR}/nglib/nglib.cpp)
 ADD_LIBRARY(nglib4smesh SHARED
@@ -257,7 +260,8 @@ ADD_LIBRARY(nglib4smesh SHARED
             ${LINALG_SOURCES}
             ${MESHING_SOURCES}
             ${OCC_SOURCES}
-            ${STLGEOM_SOURCES})
+            ${STLGEOM_SOURCES}
+            ${VISUAL_SOURCES})
 
 # Link
 SET(OCCLIBS TKernel TKGeomBase TKMath TKG2d TKG3d TKXSBase TKOffset TKFillet TKShHealing)
