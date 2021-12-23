@@ -3,6 +3,7 @@ import shutil
 import sys
 
 import patch
+from glob import glob
 
 
 def prepare_netgen():
@@ -108,12 +109,12 @@ def prepare_smesh():
     if not success:
         raise RuntimeError('Failed to apply mefisto patch.')
 
-    # Patch sources
-    for patch_name in ("SMESH_SMDS", "SMESH_Control", "SMESH_Mesh"):
-        pset = patch.fromfile(f'patch/{patch_name}.patch')
+    # Patch source
+    for patch_file in glob('patch/SMESH_*.patch'):
+        pset = patch.fromfile(patch_file)
         success = pset.apply(strip=0, root='src/SMESH')
         if not success:
-            raise RuntimeError(f'Failed to apply {patch_name} patch.')
+            raise RuntimeError(f'Failed to apply {patch_file}.')
 
     # Copy MeshVSLink sources
     shutil.copytree('extra/MeshVSLink',
