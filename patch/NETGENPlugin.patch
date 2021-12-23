@@ -1,9 +1,7 @@
 diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENPlugin_Mesher.cxx
 --- a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx
 +++ b/src/NETGENPlugin/NETGENPlugin_Mesher.cxx
-@@ -39,18 +39,18 @@
- #include <SMESH_Block.hxx>
- #include <SMESH_Comment.hxx>
+@@ -41,14 +41,14 @@
  #include <SMESH_ComputeError.hxx>
  #include <SMESH_ControlPnt.hxx>
  #include <SMESH_File.hxx>
@@ -14,17 +12,13 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
  #include <SMESH_subMesh.hxx>
  #include <StdMeshers_QuadToTriaAdaptor.hxx>
  #include <StdMeshers_ViscousLayers2D.hxx>
- 
+
 -#include <SALOMEDS_Tool.hxx>
 +// #include <SALOMEDS_Tool.hxx>
- 
+
  #include <utilities.h>
- 
- #include <BRepAdaptor_Surface.hxx>
- #include <BRepBuilderAPI_Copy.hxx>
-@@ -645,10 +645,11 @@ void NETGENPlugin_Mesher::SetParameters(const NETGENPlugin_Hypothesis* hyp)
-     mparams.meshsizefilename = hyp->GetMeshSizeFile();
- #else
+
+@@ -647,6 +647,7 @@
      // const char*
      mparams.meshsizefilename= hyp->GetMeshSizeFile().empty() ? 0 : hyp->GetMeshSizeFile().c_str();
  #endif
@@ -32,50 +26,75 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
      const NETGENPlugin_Hypothesis::TLocalSize& localSizes = hyp->GetLocalSizesAndEntries();
      if ( !localSizes.empty() )
      {
-       SMESH_Gen_i* smeshGen_i = SMESH_Gen_i::GetSMESHGen();
-       NETGENPlugin_Hypothesis::TLocalSize::const_iterator it = localSizes.begin();
-@@ -666,10 +667,11 @@ void NETGENPlugin_Mesher::SetParameters(const NETGENPlugin_Hypothesis* hyp)
-         }
-         TopoDS_Shape S = smeshGen_i->GeomObjectToShape( aGeomObj.in() );
+@@ -668,6 +669,7 @@
          setLocalSize(S, val);
        }
      }
 +    */
    }
  }
- 
- //=============================================================================
- /*!
-@@ -4473,11 +4475,12 @@ void NETGENPlugin_NetgenLibWrapper::CalcLocalH( netgen::Mesh * ngMesh )
-  */
- //================================================================================
- 
+
+@@ -855,12 +857,12 @@
+       {
+         Standard_Integer n1,n2,n3;
+         triangulation->Triangles()(i).Get( n1,n2,n3 );
+-        p [0] = triangulation->Nodes()(n1).Transformed(loc).XYZ();
+-        p [1] = triangulation->Nodes()(n2).Transformed(loc).XYZ();
+-        p [2] = triangulation->Nodes()(n3).Transformed(loc).XYZ();
+-        uv[0] = triangulation->UVNodes()(n1).XY();
+-        uv[1] = triangulation->UVNodes()(n2).XY();
+-        uv[2] = triangulation->UVNodes()(n3).XY();
++        p [0] = triangulation->InternalNodes().Value(n1).Transformed(loc).XYZ();
++        p [1] = triangulation->InternalNodes().Value(n2).Transformed(loc).XYZ();
++        p [2] = triangulation->InternalNodes().Value(n3).Transformed(loc).XYZ();
++        uv[0] = triangulation->InternalUVNodes().Value(n1).XY();
++        uv[1] = triangulation->InternalUVNodes().Value(n2).XY();
++        uv[2] = triangulation->InternalUVNodes().Value(n3).XY();
+         surfProp.SetParameters( uv[0].X(), uv[0].Y() );
+         if ( !surfProp.IsCurvatureDefined() )
+           break;
+@@ -1018,17 +1020,17 @@
+       BRep_Tool::Triangulation ( TopoDS::Face( fExp.Current() ), loc);
+     if ( triangulation.IsNull() ) continue;
+     const double fTol = BRep_Tool::Tolerance( TopoDS::Face( fExp.Current() ));
+-    const TColgp_Array1OfPnt&   points = triangulation->Nodes();
+-    const Poly_Array1OfTriangle& trias = triangulation->Triangles();
++    const Poly_ArrayOfNodes&   points = triangulation->InternalNodes();
++    const Poly_Array1OfTriangle& trias = triangulation->InternalTriangles();
+     for ( int iT = trias.Lower(); iT <= trias.Upper(); ++iT )
+     {
+       trias(iT).Get( i1, i2, i3 );
+       for ( int j = 0; j < 3; ++j )
+       {
+-        double dist2 = points(*pi[j]).SquareDistance( points( *pi[j+1] ));
++        double dist2 = points.Value(*pi[j]).SquareDistance( points.Value( *pi[j+1] ));
+         if ( dist2 < minh && fTol*fTol < dist2 )
+           minh = dist2;
+-        bb.Add( points(*pi[j]));
++        bb.Add( points.Value(*pi[j]));
+       }
+     }
+   }
+@@ -4475,7 +4477,8 @@
+
  std::string NETGENPlugin_NetgenLibWrapper::getOutputFileName()
  {
 -  std::string aTmpDir = SALOMEDS_Tool::GetTmpDir();
 +  // std::string aTmpDir = SALOMEDS_Tool::GetTmpDir();
 +  std::string aTmpDir = "/tmp";
- 
+
    TCollection_AsciiString aGenericName = aTmpDir.c_str();
    aGenericName += "NETGEN_";
- #ifndef WIN32
-   aGenericName += getpid();
-@@ -4517,10 +4520,11 @@ void NETGENPlugin_NetgenLibWrapper::RemoveTmpFiles()
-  */
- //================================================================================
- 
+@@ -4519,6 +4522,7 @@
+
  void NETGENPlugin_NetgenLibWrapper::removeOutputFile()
  {
 +  /*
    if ( !_outputFileName.empty() )
    {
      if ( _ngcout )
-     {
-       delete netgen::mycout;
-@@ -4534,6 +4538,7 @@ void NETGENPlugin_NetgenLibWrapper::removeOutputFile()
-     aFiles.reserve(1);
-     aFiles.push_back(aFileName.c_str());
- 
+@@ -4536,4 +4540,5 @@
+
      SALOMEDS_Tool::RemoveTemporaryFiles( tmpDir.c_str(), aFiles, true );
    }
 +  */
