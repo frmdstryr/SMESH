@@ -75,7 +75,6 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
        }
      }
    }
-
 @@ -4475,7 +4477,8 @@
 
  std::string NETGENPlugin_NetgenLibWrapper::getOutputFileName()
