@@ -1,18 +1,30 @@
 diff -ru a/src/SMESHUtils/SMESH_ControlPnt.cxx b/src/SMESHUtils/SMESH_ControlPnt.cxx
 --- a/src/SMESHUtils/SMESH_ControlPnt.cxx	2021-10-19 16:58:36.670164529 -0400
 +++ b/src/SMESHUtils/SMESH_ControlPnt.cxx	2021-12-22 20:29:26.620255646 -0500
-@@ -165,12 +165,11 @@
+@@ -165,21 +165,18 @@
 
    // Get triangles
    int nbTriangles = aTri->NbTriangles();
 -  const Poly_Array1OfTriangle& triangles = aTri->Triangles();
-+  const Poly_Array1OfTriangle& triangles = aTri->InternalTriangles();
 
    // GetNodes
    int nbNodes = aTri->NbNodes();
 -  TColgp_Array1OfPnt nodes(1,nbNodes);
 -  nodes = aTri->Nodes();
-+  const Poly_ArrayOfNodes &nodes = aTri->InternalNodes();
 
    // Iterate on triangles and subdivide them
    thePoints.reserve( thePoints.size() + nbTriangles );
+   for ( int i = 1; i <= nbTriangles; i++ )
+   {
+-    const Poly_Triangle& aTriangle = triangles.Value(i);
+-    gp_Pnt p1 = nodes.Value(aTriangle.Value(1));
+-    gp_Pnt p2 = nodes.Value(aTriangle.Value(2));
+-    gp_Pnt p3 = nodes.Value(aTriangle.Value(3));
++    const Poly_Triangle& aTriangle = aTri->Triangle(i);
++    gp_Pnt p1 = aTri->Node(aTriangle.Value(1));
++    gp_Pnt p2 = aTri->Node(aTriangle.Value(2));
++    gp_Pnt p3 = aTri->Node(aTriangle.Value(3));
+
+     p1.Transform(aTrsf);
+     p2.Transform(aTrsf);
+

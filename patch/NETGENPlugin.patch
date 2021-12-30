@@ -44,37 +44,38 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
 -        uv[0] = triangulation->UVNodes()(n1).XY();
 -        uv[1] = triangulation->UVNodes()(n2).XY();
 -        uv[2] = triangulation->UVNodes()(n3).XY();
-+        p [0] = triangulation->InternalNodes().Value(n1).Transformed(loc).XYZ();
-+        p [1] = triangulation->InternalNodes().Value(n2).Transformed(loc).XYZ();
-+        p [2] = triangulation->InternalNodes().Value(n3).Transformed(loc).XYZ();
-+        uv[0] = triangulation->InternalUVNodes().Value(n1).XY();
-+        uv[1] = triangulation->InternalUVNodes().Value(n2).XY();
-+        uv[2] = triangulation->InternalUVNodes().Value(n3).XY();
++        p [0] = triangulation->Node(n1).Transformed(loc).XYZ();
++        p [1] = triangulation->Node(n2).Transformed(loc).XYZ();
++        p [2] = triangulation->Node(n3).Transformed(loc).XYZ();
++        uv[0] = triangulation->UVNode(n1).XY();
++        uv[1] = triangulation->UVNode(n2).XY();
++        uv[2] = triangulation->UVNode(n3).XY();
          surfProp.SetParameters( uv[0].X(), uv[0].Y() );
          if ( !surfProp.IsCurvatureDefined() )
            break;
-@@ -1018,17 +1020,17 @@
+@@ -1018,17 +1020,15 @@
        BRep_Tool::Triangulation ( TopoDS::Face( fExp.Current() ), loc);
      if ( triangulation.IsNull() ) continue;
      const double fTol = BRep_Tool::Tolerance( TopoDS::Face( fExp.Current() ));
 -    const TColgp_Array1OfPnt&   points = triangulation->Nodes();
 -    const Poly_Array1OfTriangle& trias = triangulation->Triangles();
-+    const Poly_ArrayOfNodes&   points = triangulation->InternalNodes();
-+    const Poly_Array1OfTriangle& trias = triangulation->InternalTriangles();
-     for ( int iT = trias.Lower(); iT <= trias.Upper(); ++iT )
+-    for ( int iT = trias.Lower(); iT <= trias.Upper(); ++iT )
++    for ( int iT = 0; iT <= triangulation->NbTriangles(); ++iT )
      {
-       trias(iT).Get( i1, i2, i3 );
+-      trias(iT).Get( i1, i2, i3 );
++      triangulation->Triangle(iT).Get( i1, i2, i3 );
        for ( int j = 0; j < 3; ++j )
        {
 -        double dist2 = points(*pi[j]).SquareDistance( points( *pi[j+1] ));
-+        double dist2 = points.Value(*pi[j]).SquareDistance( points.Value( *pi[j+1] ));
++        double dist2 = triangulation->Node(*pi[j]).SquareDistance( triangulation->Node( *pi[j+1] ));
          if ( dist2 < minh && fTol*fTol < dist2 )
            minh = dist2;
 -        bb.Add( points(*pi[j]));
-+        bb.Add( points.Value(*pi[j]));
++        bb.Add( triangulation->Node(*pi[j]));
        }
      }
    }
+
 @@ -4475,7 +4477,8 @@
 
  std::string NETGENPlugin_NetgenLibWrapper::getOutputFileName()
