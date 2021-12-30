@@ -46,6 +46,7 @@ test:
     - {{ cdt('libxdamage') }}         # [linux]
     - {{ cdt('libxfixes') }}          # [linux]
     - {{ cdt('libxxf86vm') }}         # [linux]
+    - gdb
     - cmake
     - ninja
     - catch2
