@@ -10,7 +10,7 @@ diff -ru a/src/StdMeshers/StdMeshers_Adaptive1D.cxx b/src/StdMeshers/StdMeshers_
      bool                         myOwnNodes;
 
      typedef vector<int> IntVec;
-@@ -319,18 +319,17 @@
+@@ -319,18 +319,18 @@
      {
        myFaceTol         = SMESH_MesherHelper::MaxTolerance( face );
        myTree            = triaTree;
@@ -22,8 +22,8 @@ diff -ru a/src/StdMeshers/StdMeshers_Adaptive1D.cxx b/src/StdMeshers/StdMeshers_
        if ( !loc.IsIdentity() ) // transform nodes if necessary
        {
 -        TColgp_Array1OfPnt* trsfNodes = new TColgp_Array1OfPnt( myNodes->Lower(), myNodes->Upper() );
--        trsfNodes->Assign( *myNodes );
-+        Poly_ArrayOfNodes* trsfNodes = new Poly_ArrayOfNodes( *myNodes );
++        Poly_ArrayOfNodes* trsfNodes = new Poly_ArrayOfNodes();
+         trsfNodes->Assign( *myNodes );
          myNodes    = trsfNodes;
          myOwnNodes = true;
          const gp_Trsf& trsf = loc;
