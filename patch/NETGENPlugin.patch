@@ -60,7 +60,7 @@ diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENP
 -    const TColgp_Array1OfPnt&   points = triangulation->Nodes();
 -    const Poly_Array1OfTriangle& trias = triangulation->Triangles();
 -    for ( int iT = trias.Lower(); iT <= trias.Upper(); ++iT )
-+    for ( int iT = 0; iT <= triangulation->NbTriangles(); ++iT )
++    for ( int iT = 1; iT <= triangulation->NbTriangles(); ++iT )
      {
 -      trias(iT).Get( i1, i2, i3 );
 +      triangulation->Triangle(iT).Get( i1, i2, i3 );
