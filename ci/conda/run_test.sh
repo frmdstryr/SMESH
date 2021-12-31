@@ -20,5 +20,5 @@ cd ..
 cd tests
 ./test_Catch
 ./test_StdMeshers
-gdb -ex run -ex bt -ex quit --args ./test_NETGENPlugin
+./test_NETGENPlugin
 ./test_MEFISTO2
