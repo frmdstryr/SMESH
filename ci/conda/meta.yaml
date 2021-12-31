@@ -1,12 +1,12 @@
 package:
-  name: smesh4pyocct
+  name: smesh
   version: "9.7.0.1"
 
 source:
   path: ../..
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
