@@ -19,7 +19,7 @@ requirements:
 
   host:
     - occt ==7.6.0
-    - boost-cpp
+    - boost-cpp ==1.74
     - tbb-devel
     - vtk
     - zlib
@@ -28,7 +28,7 @@ requirements:
   run:
     - occt ==7.6.0
     - vtk
-    - boost-cpp
+    - boost-cpp ==1.74
     - zlib
     - pthreads-win32 # [win]
 
