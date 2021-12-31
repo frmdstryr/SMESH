@@ -23,6 +23,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: "Fix dependencies"
         run: |
@@ -76,6 +77,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: "Add conda to PATH"
         shell: bash -l {0}
@@ -129,6 +131,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: "MacOS fix"
         run: |
