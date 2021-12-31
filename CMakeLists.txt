@@ -162,7 +162,7 @@ install(TARGETS ${Netgen_LIBRARIES} ${Kernel_LIBRARIES} ${Geom_LIBRARIES} ${SMES
   RUNTIME DESTINATION "bin"
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-install(EXPORT SMESH-targets DESTINATION cmake)
+install(EXPORT SMESH-targets DESTINATION lib/cmake/smesh)
 
 
 # --------------------------------------------------------------------------- #
