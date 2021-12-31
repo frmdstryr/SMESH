@@ -178,4 +178,4 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/SMESHConfigVersion.
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SMESHConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/SMESHConfigVersion.cmake
-  DESTINATION cmake)
+  DESTINATION lib/cmake/smesh)
