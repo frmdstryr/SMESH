@@ -121,6 +121,7 @@ set(Geom_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Geom/src)
 # Netgen
 if(ENABLE_NETGEN)
     set(NETGEN_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Netgen)
+    set(NETGEN_GIT_SUBMODULE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/Netgen)
 endif(ENABLE_NETGEN)
 
 # Add subdirectories
