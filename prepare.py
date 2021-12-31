@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import subprocess
 
 import patch
 from glob import glob
@@ -29,6 +30,14 @@ def prepare_netgen():
 
     # Copy Netgen cmake files into source directory
     shutil.copytree('cmake/Netgen', 'src/Netgen', dirs_exist_ok=True)
+
+    # Create netgen version.txt file
+    version = subprocess.check_output(
+        'git describe --tags --match v[0-9]* --long --dirty'.split(),
+        cwd='external/Netgen')
+    assert version
+    with open('src/Netgen/version.txt', 'wb') as f:
+        f.write(version)
 
 
 def prepare_kernel():
