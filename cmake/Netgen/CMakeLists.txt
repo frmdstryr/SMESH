@@ -296,7 +296,7 @@ endif(WIN32)
 
 # Install
 install(FILES ${CORE_INCLUDES} DESTINATION "include/smesh/Netgen/core")
-install(FILES ${GENERAL_INCLUDES} DESTINATION "include/smesh/Netgen/general")
+install(FILES ${GENERAL_INCLUDES} DESTINATION "include/smesh/Netgen/include")
 install(FILES ${GPRIM_INCLUDES} DESTINATION "include/smesh/Netgen/gprim")
 install(FILES ${INCLUDE_INCLUDES} DESTINATION "include/smesh/Netgen/include")
 install(FILES ${LINALG_INCLUDES} DESTINATION "include/smesh/Netgen/linalg")
