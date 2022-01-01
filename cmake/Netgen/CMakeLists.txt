@@ -71,6 +71,7 @@ SET(CGS_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/csg/triapprox.cpp
     # ${NETGEN_ROOT_DIR}/libsrc/csg/vscsg.cpp
     ${NETGEN_ROOT_DIR}/libsrc/csg/zrefine.cpp)
+FILE(GLOB CSG_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/csg/*.hpp")
 
 
 # GENERAL
@@ -101,6 +102,7 @@ SET (GEOM2D_SOURCES
     #${NETGEN_ROOT_DIR}/libsrc/geom2d/python_geom2d.cpp
     # ${NETGEN_ROOT_DIR}/libsrc/geom2d/vsgeom2d.cpp
     )
+FILE(GLOB GEOM2D_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/geom2d/*.hpp")
 
 # GPRIM
 SET(GPRIM_SOURCES
@@ -244,6 +246,7 @@ SET(STLGEOM_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/stlgeom/stlline.cpp
     ${NETGEN_ROOT_DIR}/libsrc/stlgeom/stltool.cpp
     ${NETGEN_ROOT_DIR}/libsrc/stlgeom/stltopology.cpp)
+FILE(GLOB STLGEOM_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/stlgeom/*.hpp")
 
 SET(VISUAL_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/visualization/visual_dummy.cpp)
@@ -296,12 +299,15 @@ endif(WIN32)
 
 # Install
 install(FILES ${CORE_INCLUDES} DESTINATION "include/smesh/Netgen/core")
+install(FILES ${CSG_INCLUDES} DESTINATION "include/smesh/Netgen/csg")
 install(FILES ${GENERAL_INCLUDES} DESTINATION "include/smesh/Netgen/include")
+install(FILES ${GEOM2D_INCLUDES} DESTINATION "include/smesh/Netgen/geom2d")
 install(FILES ${GPRIM_INCLUDES} DESTINATION "include/smesh/Netgen/gprim")
 install(FILES ${INCLUDE_INCLUDES} DESTINATION "include/smesh/Netgen/include")
 install(FILES ${LINALG_INCLUDES} DESTINATION "include/smesh/Netgen/linalg")
 install(FILES ${MESHING_INCLUDES} DESTINATION "include/smesh/Netgen/meshing")
 install(FILES ${OCC_INCLUDES} DESTINATION "include/smesh/Netgen/occ")
+install(FILES ${STLGEOM_INCLUDES} DESTINATION "include/smesh/Netgen/stlgeom")
 install(FILES ${NETGEN_ROOT_DIR}/nglib/nglib.h DESTINATION "include/smesh/Netgen")
 
 set(Netgen_LIBRARIES nglib4smesh)
