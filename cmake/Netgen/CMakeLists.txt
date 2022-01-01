@@ -116,11 +116,11 @@ SET(GPRIM_SOURCES
 FILE(GLOB GPRIM_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/gprim/*.hpp")
 
 # INCLUDE
-SET(INCLUDE_INCLUDES
+FILE(GLOB INCLUDE_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/include/*.hpp")
+list(APPEND INCLUDE_INCLUDES
     ${NETGEN_ROOT_DIR}/libsrc/include/nginterface.h
-    ${NETGEN_ROOT_DIR}/libsrc/include/nginterface_v2.hpp
-    ${NETGEN_ROOT_DIR}/libsrc/include/mystdlib.h
-    ${NETGEN_ROOT_DIR}/libsrc/include/mydefs.hpp)
+    ${NETGEN_ROOT_DIR}/libsrc/include/mystdlib.h)
+
 
 # INTERFACE
 SET(INTERFACE_SOURCES
@@ -300,7 +300,7 @@ install(FILES ${GENERAL_INCLUDES} DESTINATION "include/smesh/Netgen/include")
 install(FILES ${GPRIM_INCLUDES} DESTINATION "include/smesh/Netgen/gprim")
 install(FILES ${INCLUDE_INCLUDES} DESTINATION "include/smesh/Netgen/include")
 install(FILES ${LINALG_INCLUDES} DESTINATION "include/smesh/Netgen/linalg")
-install(FILES ${MESHING_INCLUDES} DESTINATION "include/smesh/netgen/meshing")
+install(FILES ${MESHING_INCLUDES} DESTINATION "include/smesh/Netgen/meshing")
 install(FILES ${OCC_INCLUDES} DESTINATION "include/smesh/Netgen/occ")
 install(FILES ${NETGEN_ROOT_DIR}/nglib/nglib.h DESTINATION "include/smesh/Netgen")
 
