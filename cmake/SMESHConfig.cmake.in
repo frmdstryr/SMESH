@@ -12,6 +12,20 @@ set(SMESH_VERSION_MINOR @SMESH_VERSION_MINOR@)
 set(SMESH_VERSION_PATCH @SMESH_VERSION_PATCH@)
 set(SMESH_VERSION_TWEAK @SMESH_VERSION_TWEAK@)
 
+
+# Compute the installation prefix from this SMESHConfig.cmake file
+# location, by going up one level + one level if "cmake" + one level if "lib".
+# This is made to support different locations of CMake files:
+# - in UNIX style: $INSTALL_DIR/lib/cmake/smesh
+# - in Windows style: $INSTALL_DIR/cmake
+get_filename_component (SMESH_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_FILE}" PATH)
+get_filename_component (SMESH_INSTALL_PREFIX "${SMESH_INSTALL_PREFIX}" PATH)
+if (SMESH_INSTALL_PREFIX MATCHES "/cmake$")
+  get_filename_component (SMESH_INSTALL_PREFIX "${SMESH_INSTALL_PREFIX}" PATH)
+endif()
+if (SMESH_INSTALL_PREFIX MATCHES "/lib$")
+  get_filename_component (SMESH_INSTALL_PREFIX "${SMESH_INSTALL_PREFIX}" PATH)
+endif()
 set(SMESH_INCLUDE_DIR  "${SMESH_INSTALL_PREFIX}/include/smesh")
 set(SMESH_LIBRARY_DIR  "${SMESH_INSTALL_PREFIX}/lib")
 

@@ -157,12 +157,18 @@ get_directory_property(SMESH_LIBRARIES
 # --------------------------------------------------------------------------- #
 # Install
 # --------------------------------------------------------------------------- #
+if (UNIX)
+    set(SMESH_CMAKE_CONFIG_DEST lib/cmake/smesh)
+else()
+    set(SMESH_CMAKE_CONFIG_DEST cmake)
+endif()
+
 install(TARGETS ${Netgen_LIBRARIES} ${Kernel_LIBRARIES} ${Geom_LIBRARIES} ${SMESH_LIBRARIES} EXPORT SMESH-targets
   ARCHIVE DESTINATION "lib"
   RUNTIME DESTINATION "bin"
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-install(EXPORT SMESH-targets DESTINATION lib/cmake/smesh)
+install(EXPORT SMESH-targets DESTINATION ${SMESH_CMAKE_CONFIG_DEST})
 
 
 # --------------------------------------------------------------------------- #
@@ -178,4 +184,4 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/SMESHConfigVersion.
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SMESHConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/SMESHConfigVersion.cmake
-  DESTINATION lib/cmake/smesh)
+  DESTINATION ${SMESH_CMAKE_CONFIG_DEST})
