@@ -1,0 +1,11 @@
+diff --git a/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx b/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx
+--- a/src/NETGENPlugin/NNETGENPlugin_NETGEN_2D_ONLY.cxx	2022-03-20 11:31:06.042068238 -0400
++++ b/src/NETGENPlugin/NETGENPlugin_NETGEN_2D_ONLY.cxx	2022-03-21 20:37:12.028624578 -0400
+@@ -40,6 +40,7 @@
+ #include <StdMeshers_QuadranglePreference.hxx>
+ #include <StdMeshers_ViscousLayers2D.hxx>
+ 
++#include <TopExp.hxx>
+ #include <Precision.hxx>
+ #include <Standard_ErrorHandler.hxx>
+ #include <Standard_Failure.hxx>

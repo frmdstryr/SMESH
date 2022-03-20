@@ -1,6 +1,6 @@
 package:
   name: smesh
-  version: "9.7.0.2"
+  version: "9.8.0.0"
 
 source:
   path: ../..
@@ -18,7 +18,7 @@ requirements:
     - ninja
 
   host:
-    - occt ==7.6.0
+    - occt ==7.6.1
     - boost-cpp
     - tbb-devel
     - vtk
@@ -26,7 +26,7 @@ requirements:
     - pthreads-win32  # [win]
 
   run:
-    - occt ==7.6.0
+    - occt ==7.6.1
     - vtk
     - boost-cpp
     - zlib

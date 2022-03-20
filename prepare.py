@@ -20,12 +20,19 @@ def prepare_netgen():
     shutil.copytree('external/Netgen/rules', 'src/Netgen/rules')
 
     # Patch Netgen sources for SALOME
-    #pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForSalome.patch')
-    #pset.apply(strip=1, root='src/Netgen')
+    pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen62ForSalome.patch')
+    pset.apply(strip=1, root='src/Netgen')
 
     #if sys.platform == 'win32':
     #    pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForWindows.patch')
     #    pset.apply(strip=1, root='src/Netgen')
+
+    for patch_file in glob('patch/Netgen_*.patch'):
+        pset = patch.fromfile(patch_file)
+        assert pset, f"Patch {patch_file} is malformed or not a patch"
+        success = pset.apply(strip=0, root='src/Netgen')
+        if not success:
+            raise RuntimeError(f'Failed to apply {patch_file}.')
 
     # Copy Netgen cmake files into source directory
     shutil.copytree('cmake/Netgen', 'src/Netgen', dirs_exist_ok=True)
@@ -98,10 +105,10 @@ def prepare_smesh():
     shutil.copyfile('cmake/SMESH/CMakeLists.txt', target)
 
     # Patch sources
-    pset = patch.fromfile('patch/SMESH.patch')
-    success = pset.apply(strip=0, root='src/SMESH')
-    if not success:
-        raise RuntimeError('Failed to apply SMESH patch.')
+    #pset = patch.fromfile('patch/SMESH.patch')
+    #success = pset.apply(strip=0, root='src/SMESH')
+    #if not success:
+    #    raise RuntimeError('Failed to apply SMESH patch.')
 
     # Patch sources
     pset = patch.fromfile('patch/mefisto.patch')
@@ -112,6 +119,7 @@ def prepare_smesh():
     # Patch source
     for patch_file in glob('patch/SMESH_*.patch'):
         pset = patch.fromfile(patch_file)
+        assert pset, f"Patch {patch_file} is malformed or not a patch"
         success = pset.apply(strip=0, root='src/SMESH')
         if not success:
             raise RuntimeError(f'Failed to apply {patch_file}.')
@@ -137,10 +145,12 @@ def prepare_netgen_plugin():
                     'src/SMESH/src/NETGENPlugin/src')
 
     # Patch sources
-    pset = patch.fromfile('patch/NETGENPlugin.patch')
-    success = pset.apply(strip=0, root='src/SMESH/src/NETGENPlugin')
-    if not success:
-        raise RuntimeError('Failed to apply NETGENPlugin patch.')
+    for patch_file in glob('patch/NETGENPlugin_*.patch'):
+        pset = patch.fromfile(patch_file)
+        assert pset, f"Patch {patch_file} is malformed or not a patch"
+        success = pset.apply(strip=0, root='src/SMESH/src/NETGENPlugin')
+        if not success:
+            raise RuntimeError(f"Failed to apply {patch_file}.")
 
 
 def prepare_noexcept():

@@ -89,3 +89,19 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+
+
+# kdevelop
+.kdev4/
+*.kdev4
+*.kate-swp
+
+# Generated src
+src/Geom
+src/Kernel
+src/Netgen
+src/NETGENPlugin
+src/SMESH
+
+# boa
+ci/conda/recipe.yaml

@@ -1,4 +1,5 @@
 cd test
+rm -Rf build
 mkdir build
 cd build
 

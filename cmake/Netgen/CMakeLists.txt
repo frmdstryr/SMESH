@@ -141,21 +141,23 @@ SET(INTERFACE_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/interface/writegmsh.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writegmsh2.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writejcm.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/interface/writeOpenFOAM15x.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writepermas.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writetecplot.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writetet.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writetochnog.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/writeuser.cpp
     ${NETGEN_ROOT_DIR}/libsrc/interface/wuchemnitz.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/interface/writeOpenFOAM15x.cpp)
+)
 
 # LINALG
 SET (LINALG_SOURCES
-     ${NETGEN_ROOT_DIR}/libsrc/linalg/densemat.cpp
-     ${NETGEN_ROOT_DIR}/libsrc/linalg/polynomial.cpp
      ${NETGEN_ROOT_DIR}/libsrc/linalg/bfgs.cpp
+     ${NETGEN_ROOT_DIR}/libsrc/linalg/densemat.cpp
      ${NETGEN_ROOT_DIR}/libsrc/linalg/linopt.cpp
-     ${NETGEN_ROOT_DIR}/libsrc/linalg/linsearch.cpp)
+     ${NETGEN_ROOT_DIR}/libsrc/linalg/linsearch.cpp
+     ${NETGEN_ROOT_DIR}/libsrc/linalg/polynomial.cpp
+)
 
 FILE(GLOB LINALG_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/linalg/*.hpp")
 
@@ -224,18 +226,23 @@ endforeach()
 
 # OCC
 SET(OCC_SOURCES
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_edge.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_face.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_utils.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_vertex.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occconstruction.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occgenmesh.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occgeom.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/occ/occmeshsurf.cpp
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Inter2d.cxx
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Inter3d.cxx
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Loop.cxx
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Loop2d.cxx
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Loop3d.cxx
     ${NETGEN_ROOT_DIR}/libsrc/occ/Partition_Spliter.cxx
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occconstruction.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occgenmesh.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occgeom.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occmeshsurf.cpp)
+)
 
-SET(OCC_INCLUDES ${NETGEN_ROOT_DIR}/libsrc/occ/occgeom.hpp ${NETGEN_ROOT_DIR}/libsrc/occ/occmeshsurf.hpp)
+FILE(GLOB OCC_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/occ/*.hpp")
 
 # STLGEOM
 SET(STLGEOM_SOURCES
@@ -290,6 +297,7 @@ target_include_directories(nglib4smesh PUBLIC
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/core>
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/general>
   $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/meshing>
+  $<BUILD_INTERFACE:${NETGEN_ROOT_DIR}/libsrc/occ>
   $<INSTALL_INTERFACE:include/smesh/Netgen>
 )
 

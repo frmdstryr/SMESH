@@ -1,0 +1,108 @@
+diff --git a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx b/src/NETGENPlugin/NETGENPlugin_Mesher.cxx
+--- a/src/NETGENPlugin/NETGENPlugin_Mesher.cxx
++++ b/src/NETGENPlugin/NETGENPlugin_Mesher.cxx
+@@ -41,14 +41,14 @@
+ #include <SMESH_ComputeError.hxx>
+ #include <SMESH_ControlPnt.hxx>
+ #include <SMESH_File.hxx>
+-#include <SMESH_Gen_i.hxx>
++#include <SMESH_Gen.hxx>
+ #include <SMESH_Mesh.hxx>
+ #include <SMESH_MesherHelper.hxx>
+ #include <SMESH_subMesh.hxx>
+ #include <StdMeshers_QuadToTriaAdaptor.hxx>
+ #include <StdMeshers_ViscousLayers2D.hxx>
+ 
+-#include <SALOMEDS_Tool.hxx>
++// #include <SALOMEDS_Tool.hxx>
+ 
+ #include <utilities.h>
+ 
+@@ -59,6 +59,7 @@
+ #include <BRep_Builder.hxx>
+ #include <BRep_Tool.hxx>
+ #include <Bnd_B3d.hxx>
++#include <BRepBndLib.hxx>
+ #include <GeomLib_IsPlanarSurface.hxx>
+ #include <NCollection_Map.hxx>
+ #include <Poly_Triangulation.hxx>
+@@ -659,6 +660,7 @@
+     // const char*
+     mparams.meshsizefilename= hyp->GetMeshSizeFile().empty() ? 0 : hyp->GetMeshSizeFile().c_str();
+ #endif
++    /*
+     const NETGENPlugin_Hypothesis::TLocalSize& localSizes = hyp->GetLocalSizesAndEntries();
+     if ( !localSizes.empty() )
+     {
+@@ -680,6 +682,7 @@
+         setLocalSize(S, val);
+       }
+     }
++    */
+   }
+ 
+ #ifdef NETGEN_V6
+@@ -873,12 +876,12 @@
+       {
+         Standard_Integer n1,n2,n3;
+         triangulation->Triangles()(i).Get( n1,n2,n3 );
+-        p [0] = triangulation->Nodes()(n1).Transformed(loc).XYZ();
+-        p [1] = triangulation->Nodes()(n2).Transformed(loc).XYZ();
+-        p [2] = triangulation->Nodes()(n3).Transformed(loc).XYZ();
+-        uv[0] = triangulation->UVNodes()(n1).XY();
+-        uv[1] = triangulation->UVNodes()(n2).XY();
+-        uv[2] = triangulation->UVNodes()(n3).XY();
++        p [0] = triangulation->Node(n1).Transformed(loc).XYZ();
++        p [1] = triangulation->Node(n2).Transformed(loc).XYZ();
++        p [2] = triangulation->Node(n3).Transformed(loc).XYZ();
++        uv[0] = triangulation->UVNode(n1).XY();
++        uv[1] = triangulation->UVNode(n2).XY();
++        uv[2] = triangulation->UVNode(n3).XY();
+         surfProp.SetParameters( uv[0].X(), uv[0].Y() );
+         if ( !surfProp.IsCurvatureDefined() )
+           break;
+@@ -1036,17 +1039,15 @@
+       BRep_Tool::Triangulation ( TopoDS::Face( fExp.Current() ), loc);
+     if ( triangulation.IsNull() ) continue;
+     const double fTol = BRep_Tool::Tolerance( TopoDS::Face( fExp.Current() ));
+-    const TColgp_Array1OfPnt&   points = triangulation->Nodes();
+-    const Poly_Array1OfTriangle& trias = triangulation->Triangles();
+-    for ( int iT = trias.Lower(); iT <= trias.Upper(); ++iT )
++    for ( int iT = 1; iT <= triangulation->NbTriangles(); ++iT )
+     {
+-      trias(iT).Get( i1, i2, i3 );
++      triangulation->Triangle(iT).Get( i1, i2, i3 );
+       for ( int j = 0; j < 3; ++j )
+       {
+-        double dist2 = points(*pi[j]).SquareDistance( points( *pi[j+1] ));
++        double dist2 = triangulation->Node(*pi[j]).SquareDistance( triangulation->Node( *pi[j+1] ));
+         if ( dist2 < minh && fTol*fTol < dist2 )
+           minh = dist2;
+-        bb.Add( points(*pi[j]));
++        bb.Add( triangulation->Node(*pi[j]));
+       }
+     }
+   }
+@@ -4554,7 +4555,7 @@
+ 
+ std::string NETGENPlugin_NetgenLibWrapper::getOutputFileName()
+ {
+-  std::string aTmpDir = SALOMEDS_Tool::GetTmpDir();
++  std::string aTmpDir = "/tmp";
+ 
+   TCollection_AsciiString aGenericName = aTmpDir.c_str();
+   aGenericName += "NETGEN_";
+@@ -4598,6 +4599,7 @@
+ 
+ void NETGENPlugin_NetgenLibWrapper::removeOutputFile()
+ {
++  /*
+   if ( !_outputFileName.empty() )
+   {
+     if ( _ngcout )
+@@ -4615,4 +4617,5 @@
+ 
+     SALOMEDS_Tool::RemoveTemporaryFiles( tmpDir.c_str(), aFiles, true );
+   }
++  */
+ }

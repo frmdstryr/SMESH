@@ -1,12 +1,134 @@
-diff --git a/src/SMESH/SMESH_Mesh.cxx b/src/SMESH/SMESH_Mesh.cxx
---- a/src/SMESH/SMESH_Mesh.cxx
-+++ b/src/SMESH/SMESH_Mesh.cxx
-@@ -59,7 +61,7 @@
-
+diff -u a//src/SMESH/SMESH_Mesh.cxx b/src/SMESH/SMESH_Mesh.cxx
+--- a//src/SMESH/SMESH_Mesh.cxx	2022-03-20 11:28:31.639001204 -0400
++++ b/src/SMESH/SMESH_Mesh.cxx	2022-03-20 20:34:52.711749097 -0400
+@@ -44,8 +44,10 @@
+ #include "DriverDAT_W_SMDS_Mesh.h"
+ #include "DriverGMF_Read.hxx"
+ #include "DriverGMF_Write.hxx"
++#ifdef WITH_MED
+ #include "DriverMED_R_SMESHDS_Mesh.h"
+ #include "DriverMED_W_SMESHDS_Mesh.h"
++#endif
+ #include "DriverSTL_R_SMDS_Mesh.h"
+ #include "DriverSTL_W_SMDS_Mesh.h"
+ #include "DriverUNV_R_SMDS_Mesh.h"
+@@ -57,7 +59,7 @@
+ 
  #include <GEOMUtils.hxx>
-
+ 
 -#undef _Precision_HeaderFile
 +// #undef _Precision_HeaderFile
  #include <BRepBndLib.hxx>
  #include <BRepPrimAPI_MakeBox.hxx>
  #include <Bnd_Box.hxx>
+@@ -517,7 +519,7 @@
+ //function : MEDToMesh
+ //purpose  :
+ //=======================================================================
+-
++#ifdef WITH_MED
+ int SMESH_Mesh::MEDToMesh(const char* theFileName, const char* theMeshName)
+ {
+   if ( _isShapeToMesh )
+@@ -555,6 +557,7 @@
+ 
+   return (int) status;
+ }
++#endif
+ 
+ //=======================================================================
+ //function : STLToMesh
+@@ -1408,7 +1411,7 @@
+  * \brief Export the mesh to a writer
+  */
+ //================================================================================
+-
++#ifdef WITH_MED
+ void SMESH_Mesh::exportMEDCommmon(DriverMED_W_SMESHDS_Mesh& theWriter,
+                                   const char*               theMeshName,
+                                   bool                      theAutoGroups,
+@@ -1484,7 +1487,6 @@
+  * Same as SMESH_Mesh::ExportMED except for \a file and \a theVersion
+  */
+ //================================================================================
+-
+ MEDCoupling::MCAuto<MEDCoupling::DataArrayByte>
+ SMESH_Mesh::ExportMEDCoupling(const char*         theMeshName,
+                               bool                theAutoGroups,
+@@ -1499,7 +1501,6 @@
+                           theAddODOnVertices, theZTolerance, theSaveNumbers);
+   return writer.getData();
+ }
+-
+ //================================================================================
+ /*!
+  * \brief Export the mesh to a med file
+@@ -1540,6 +1541,7 @@
+   writer.SetFile( theFile, theVersion );
+   this->exportMEDCommmon( writer, theMeshName, theAutoGroups, theMeshPart, theAutoDimension, theAddODOnVertices, theZTolerance, theSaveNumbers );
+ }
++#endif
+ 
+ //================================================================================
+ /*!
+diff -u a//src/SMESH/SMESH_Mesh.hxx b/src/SMESH/SMESH_Mesh.hxx
+--- a//src/SMESH/SMESH_Mesh.hxx	2022-03-20 20:17:35.984942286 -0400
++++ b/src/SMESH/SMESH_Mesh.hxx	2022-03-20 20:37:16.489294715 -0400
+@@ -40,9 +40,9 @@
+ #include <TopoDS_Shape.hxx>
+ #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
+ #include <TopTools_ListOfShape.hxx>
+-
++#ifdef WITH_MED
+ #include "MEDCouplingMemArray.hxx"
+-
++#endif
+ #include <map>
+ #include <list>
+ #include <vector>
+@@ -125,9 +125,9 @@
+    * consult DriverMED_R_SMESHDS_Mesh::ReadStatus for returned value
+    */
+   int UNVToMesh(const char* theFileName);
+-
++#ifdef WITH_MED
+   int MEDToMesh(const char* theFileName, const char* theMeshName);
+-  
++#endif
+   std::string STLToMesh(const char* theFileName);
+ 
+   int CGNSToMesh(const char* theFileName, const int theMeshIndex, std::string& theMeshName);
+@@ -265,6 +265,7 @@
+     TooLargeForExport(const char* format):runtime_error(format) {}
+   };
+ 
++#ifdef WITH_MED
+   MEDCoupling::MCAuto<MEDCoupling::DataArrayByte>
+     ExportMEDCoupling(const char*         theMeshName = NULL,
+                       bool                theAutoGroups = true,
+@@ -283,7 +284,7 @@
+                  bool                theAddODOnVertices = false,
+                  double              theZTolerance = -1.,
+                  bool                theSaveNumbers = true);
+-
++#endif
+   void ExportDAT(const char *        file,
+                  const SMESHDS_Mesh* meshPart = 0,
+                  const bool          renumber = true);
+@@ -384,6 +385,7 @@
+   
+ private:
+ 
++#ifdef WITH_MED
+   void exportMEDCommmon(DriverMED_W_SMESHDS_Mesh& myWriter,
+                         const char*               theMeshName,
+                         bool                      theAutoGroups,
+@@ -392,7 +394,7 @@
+                         bool                      theAddODOnVertices,
+                         double                    theZTolerance,
+                         bool                      theSaveNumbers);
+-
++#endif
+  private:
+   void fillAncestorsMap(const TopoDS_Shape& theShape);
+   void getAncestorsSubMeshes(const TopoDS_Shape&            theSubShape,

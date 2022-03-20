@@ -1,15 +1,14 @@
-diff -r a/src/StdMeshers/StdMeshers_ViscousLayers.cxx b/src/StdMeshers/StdMeshers_ViscousLayers.cxx
---- a/src/StdMeshers/StdMeshers_ViscousLayers.cxx	2021-10-19 16:58:36.742163609 -0400
-+++ b/src/StdMeshers/StdMeshers_ViscousLayers.cxx	2021-12-23 10:16:07.654839133 -0500
-@@ -51,7 +51,6 @@
- #include "StdMeshers_ProjectionUtils.hxx"
+--- a/src/StdMeshers/StdMeshers_ViscousLayers.cxx	2022-03-20 20:17:36.000942449 -0400
++++ b/src/StdMeshers/StdMeshers_ViscousLayers.cxx	2022-03-20 20:50:28.098015939 -0400
+@@ -52,7 +52,6 @@
+ #include "StdMeshers_Quadrangle_2D.hxx"
  #include "StdMeshers_ViscousLayers2D.hxx"
-
+ 
 -#include <Adaptor3d_HSurface.hxx>
  #include <BRepAdaptor_Curve.hxx>
  #include <BRepAdaptor_Curve2d.hxx>
  #include <BRepAdaptor_Surface.hxx>
-@@ -1751,8 +1750,8 @@
+@@ -1818,8 +1817,8 @@
      //case GeomAbs_SurfaceOfExtrusion:
      case GeomAbs_OffsetSurface:
      {
