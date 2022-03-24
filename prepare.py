@@ -20,8 +20,10 @@ def prepare_netgen():
     shutil.copytree('external/Netgen/rules', 'src/Netgen/rules')
 
     # Patch Netgen sources for SALOME
-    pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen62ForSalome.patch')
-    pset.apply(strip=1, root='src/Netgen')
+    #pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen62ForSalome.patch')
+    #success = pset.apply(strip=1, root='src/Netgen')
+    #if not success:
+    #    raise RuntimeError(f'Failed to apply netgen62ForSalome.patch.')
 
     #if sys.platform == 'win32':
     #    pset = patch.fromfile('external/NETGENPlugin/src/NETGEN/netgen53ForWindows.patch')
