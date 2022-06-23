@@ -1,3 +1,4 @@
+add_definitions(-DSALOME_LIGHT)
 set(Kernel_SRCS
     # Basics
     ${Kernel_SRC_DIR}/Basics/Basics_Utils.cxx
