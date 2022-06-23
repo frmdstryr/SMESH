@@ -80,10 +80,10 @@ def prepare_geom():
                     'src/Geom/src/GEOMUtils')
 
     # Patch sources
-    #pset = patch.fromfile('patch/geom.patch')
-    #success = pset.apply(strip=0, root='src/Geom')
-    #if not success:
-    #    raise RuntimeError('Failed to apply SMESH patch.')
+    pset = patch.fromfile('patch/geom.patch')
+    success = pset.apply(strip=0, root='src/Geom')
+    if not success:
+        raise RuntimeError('Failed to apply SMESH patch.')
 
     # Copy and overwrite the Geom CMakeLists.txt file
     target = os.path.join('src/Geom', 'CMakeLists.txt')
