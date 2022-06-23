@@ -1,7 +1,7 @@
 diff -ru a/src/StdMeshers/StdMeshers_Projection_2D.cxx b/src/StdMeshers/StdMeshers_Projection_2D.cxx
 --- a/src/StdMeshers/StdMeshers_Projection_2D.cxx
 +++ b/src/StdMeshers/StdMeshers_Projection_2D.cxx
-@@ -58,8 +58,6 @@
+@@ -62,8 +62,6 @@
  #include <GeomAPI_ExtremaCurveCurve.hxx>
  #include <GeomAPI_ProjectPointOnSurf.hxx>
  #include <GeomAdaptor_Curve.hxx>
@@ -10,7 +10,7 @@ diff -ru a/src/StdMeshers/StdMeshers_Projection_2D.cxx b/src/StdMeshers/StdMeshe
  #include <GeomAdaptor_Surface.hxx>
  #include <GeomLib_IsPlanarSurface.hxx>
  #include <Geom_Line.hxx>
-@@ -1526,8 +1524,8 @@
+@@ -1883,8 +1883,8 @@
      SMESHDS_Mesh* tgtMeshDS = tgtMesh->GetMeshDS();
 
      Handle(Geom_Surface)             tgtSurface = BRep_Tool::Surface( theTgtFace );

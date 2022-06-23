@@ -39,3 +39,11 @@ With the sources prepared, a CMake build process can be initiated by:
 
 Note that for Windows systems `PTHREAD_INCLUDE_DIR`  and `PTHREAD_LIB_DIRS` will likely need
 defined manually since they cannot typically be automatically found by CMake.
+
+
+## Updating
+
+1. Run git fetch and checkout the latest release in each subfolder in `external/`
+2. Update versions in CMakeLists.txt
+3. Update versions in ci/conda/meta.yaml
+4. Add/remove/fix any patches needed
