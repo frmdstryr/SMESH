@@ -85,7 +85,7 @@ set(test_Execs)
 # Test CATCH
 # --------------------------------------------------------------------------- #
 add_executable(test_Catch src/Catch.t.cpp)
-target_link_libraries(test_Catch Catch2::Catch2)
+target_link_libraries(test_Catch Catch2::Catch2WithMain)
 catch_discover_tests(test_Catch)
 
 set(test_Execs ${test_Execs} test_Catch)
@@ -95,7 +95,7 @@ set(test_Execs ${test_Execs} test_Catch)
 # Test StdMeshers
 # --------------------------------------------------------------------------- #
 add_executable(test_StdMeshers src/StdMeshers.t.cpp)
-target_link_libraries(test_StdMeshers Catch2::Catch2 ${SMESH_LIBRARIES})
+target_link_libraries(test_StdMeshers Catch2::Catch2WithMain ${SMESH_LIBRARIES})
 catch_discover_tests(test_StdMeshers)
 
 set(test_Execs ${test_Execs} test_StdMeshers)
@@ -105,7 +105,7 @@ set(test_Execs ${test_Execs} test_StdMeshers)
 # Test MEFISTO2
 # --------------------------------------------------------------------------- #
 add_executable(test_MEFISTO2 src/MEFISTO2.t.cpp)
-target_link_libraries(test_MEFISTO2 Catch2::Catch2 ${SMESH_LIBRARIES})
+target_link_libraries(test_MEFISTO2 Catch2::Catch2WithMain ${SMESH_LIBRARIES})
 catch_discover_tests(test_MEFISTO2)
 
 set(test_Execs ${test_Execs} test_MEFISTO2)
@@ -116,7 +116,7 @@ set(test_Execs ${test_Execs} test_MEFISTO2)
 # --------------------------------------------------------------------------- #
 if(ENABLE_NETGEN)
     add_executable(test_NETGENPlugin src/NETGENPlugin.t.cpp)
-    target_link_libraries(test_NETGENPlugin Catch2::Catch2 ${SMESH_LIBRARIES})
+    target_link_libraries(test_NETGENPlugin Catch2::Catch2WithMain ${SMESH_LIBRARIES})
     catch_discover_tests(test_NETGENPlugin)
 
     set(test_Execs ${test_Execs} test_NETGENPlugin)
