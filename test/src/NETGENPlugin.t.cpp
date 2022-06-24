@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <BRepPrimAPI_MakeBox.hxx>
 #include <TopoDS_Solid.hxx>
@@ -10,10 +10,44 @@
 #include <SMESH_Gen.hxx>
 #include <SMESH_Mesh.hxx>
 #include <SMESH_Hypothesis.hxx>
+#include <NETGENPlugin_SimpleHypothesis_2D.hxx>
 #include <NETGENPlugin_SimpleHypothesis_3D.hxx>
+#include <NETGENPlugin_NETGEN_2D.hxx>
 #include <NETGENPlugin_NETGEN_2D3D.hxx>
 #include <StdMeshers_LocalLength.hxx>
 #include <StdMeshers_Regular_1D.hxx>
+
+TEST_CASE("Mesh a face of a box.", "[NETGENPlugin]") {
+
+    TopoDS_Solid box = BRepPrimAPI_MakeBox(10.0, 10.0, 10.0).Solid();
+
+	TopExp_Explorer exp = TopExp_Explorer(box, TopAbs_FACE);
+	const TopoDS_Shape& face = exp.Current();
+
+    SMESH_Gen* gen = new SMESH_Gen();
+    SMESH_Mesh* mesh = gen->CreateMesh(true);
+
+    NETGENPlugin_SimpleHypothesis_2D* hyp = new NETGENPlugin_SimpleHypothesis_2D(0, gen);
+    hyp->SetLocalLength(1.0);
+
+    NETGENPlugin_NETGEN_2D* algo = new NETGENPlugin_NETGEN_2D(1, gen);
+
+    mesh->ShapeToMesh(face);
+    mesh->AddHypothesis(face, 0);
+    mesh->AddHypothesis(face, 1);
+
+    bool success = gen->Compute(*mesh, face);
+    REQUIRE(success == true);
+
+    REQUIRE(mesh->NbTetras() == 5084);
+    REQUIRE(mesh->NbNodes() == 1242);
+
+    delete hyp;
+    delete algo;
+    delete mesh;
+    delete gen;
+}
+
 
 TEST_CASE("Mesh a box with tetrahedral elements.", "[NETGENPlugin]") {
 
