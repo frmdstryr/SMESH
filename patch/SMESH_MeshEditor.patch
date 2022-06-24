@@ -1,0 +1,12 @@
+diff -ru a/src/SMESH/SMESH_MeshEditor.cxx b/src/SMESH/SMESH_MeshEditor.cxx
+--- a/src/SMESH/SMESH_MeshEditor.cxx	2022-06-24 08:49:12.692239938 -0400
++++ b/src/SMESH/SMESH_MeshEditor.cxx	2022-06-24 08:54:25.250901889 -0400
+@@ -4636,7 +4636,7 @@
+         std::swap( itNN[0],    itNN[1] );
+         std::swap( prevNod[0], prevNod[1] );
+         std::swap( nextNod[0], nextNod[1] );
+-        std::swap( isSingleNode[0], isSingleNode[1] );
++        std::vector<bool>::swap( isSingleNode[0], isSingleNode[1] );
+         if ( nbSame > 0 )
+           sames[0] = 1 - sames[0];
+         iNotSameNode = 1 - iNotSameNode;
