@@ -255,6 +255,10 @@ SET(STLGEOM_SOURCES
     ${NETGEN_ROOT_DIR}/libsrc/stlgeom/stltopology.cpp)
 FILE(GLOB STLGEOM_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/stlgeom/*.hpp")
 
+SET(VISUAL_SOURCES
+    ${NETGEN_ROOT_DIR}/libsrc/meshing/visual_interface.cpp
+)
+
 # NGLIB
 SET(NGLIB_SOURCES ${NETGEN_ROOT_DIR}/nglib/nglib.cpp)
 ADD_LIBRARY(nglib4smesh SHARED
@@ -269,6 +273,7 @@ ADD_LIBRARY(nglib4smesh SHARED
             ${MESHING_SOURCES}
             ${OCC_SOURCES}
             ${STLGEOM_SOURCES}
+            ${VISUAL_SOURCES}
 )
 
 # Link
