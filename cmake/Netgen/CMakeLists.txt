@@ -226,10 +226,10 @@ endforeach()
 
 # OCC
 SET(OCC_SOURCES
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_edge.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_face.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_utils.cpp
-    ${NETGEN_ROOT_DIR}/libsrc/occ/occ_vertex.cpp
+    # ${NETGEN_ROOT_DIR}/libsrc/occ/occ_edge.cpp
+    # ${NETGEN_ROOT_DIR}/libsrc/occ/occ_face.cpp
+    # ${NETGEN_ROOT_DIR}/libsrc/occ/occ_utils.cpp
+    # ${NETGEN_ROOT_DIR}/libsrc/occ/occ_vertex.cpp
     ${NETGEN_ROOT_DIR}/libsrc/occ/occconstruction.cpp
     ${NETGEN_ROOT_DIR}/libsrc/occ/occgenmesh.cpp
     ${NETGEN_ROOT_DIR}/libsrc/occ/occgeom.cpp
@@ -256,7 +256,8 @@ SET(STLGEOM_SOURCES
 FILE(GLOB STLGEOM_INCLUDES "${NETGEN_ROOT_DIR}/libsrc/stlgeom/*.hpp")
 
 SET(VISUAL_SOURCES
-    ${NETGEN_ROOT_DIR}/libsrc/meshing/visual_interface.cpp
+    #${NETGEN_ROOT_DIR}/libsrc/meshing/visual_interface.cpp
+    ${NETGEN_ROOT_DIR}/libsrc/visualization/visual_dummy.cpp
 )
 
 # NGLIB
