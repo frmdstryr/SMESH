@@ -6,7 +6,7 @@ source:
   path: ../..
 
 build:
-  number: 100
+  number: 101
 
 requirements:
   build:
@@ -26,7 +26,7 @@ requirements:
     - pthreads-win32  # [win]
 
   run:
-    - occt ==7.6.2
+    - occt ==7.6.3
     - vtk
     - boost-cpp
     - zlib
